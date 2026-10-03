@@ -7,3 +7,4 @@ Requires .NET 8 SDK. Run `dotnet run`; SQLite creates `pantry.db` on first start
 LOW LANGUAGE
 
 Project by [Brunno Dev](https://brunnodev.store).
+
