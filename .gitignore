@@ -1,0 +1,5 @@
+bin/
+obj/
+pantry.db
+pantry.db-shm
+pantry.db-wal
