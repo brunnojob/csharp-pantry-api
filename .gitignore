@@ -27,3 +27,9 @@ core.[0-9]*
 *.lock
 !package-lock.json
 !bun.lock
+
+build-native/
+
+runtime-regressions
+
+.netlify/

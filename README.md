@@ -23,3 +23,9 @@ Use the [shared operations archive client](https://github.com/brunnojob/vercel-h
 ## License
 
 Original source and documentation are MIT licensed; see [LICENSE](LICENSE). Third-party dependencies and media retain their respective terms. Maintained by [Brunno Dev](https://brunnodev.store).
+
+## Implementation update
+
+Anonymous Supabase accounts receive HTTP 403. Malformed upstream JSON returns HTTP 502. `GET /items?limit=100&offset=0` provides deterministic expiry/id ordering with a maximum page size of 500 and bounded offsets.
+
+Contribution trailer: `Co-authored-by: nyctophile <33561761+ineedfoundmyway@users.noreply.github.com>`.

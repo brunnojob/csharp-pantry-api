@@ -30,6 +30,10 @@ app.Use(async (context, next) => {
             await context.Response.WriteAsJsonAsync(new { error = "invalid_session" }); return;
         }
         using var user = JsonDocument.Parse(await response.Content.ReadAsStringAsync(context.RequestAborted));
+        if (user.RootElement.TryGetProperty("is_anonymous", out var anonymous) && anonymous.ValueKind == JsonValueKind.True) {
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsJsonAsync(new { error = "registered_account_required" }); return;
+        }
         if (!user.RootElement.TryGetProperty("id", out var id) || !Guid.TryParse(id.GetString(), out var owner)) {
             context.Response.StatusCode = 401; return;
         }
@@ -38,6 +42,7 @@ app.Use(async (context, next) => {
         await next();
     } catch (OperationCanceledException) { context.Response.StatusCode = 504; }
       catch (HttpRequestException) { context.Response.StatusCode = 502; }
+      catch (JsonException) { context.Response.StatusCode = 502; }
 });
 
 async Task<IResult> Data(HttpContext context, HttpMethod method, string path, object? payload = null) {
@@ -59,7 +64,11 @@ async Task<IResult> Data(HttpContext context, HttpMethod method, string path, ob
 }
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok", database = "supabase", configured = databaseUrl is not null && publishableKey is not null }));
-app.MapGet("/items", (Func<HttpContext, Task<IResult>>)((HttpContext context) => Data(context, HttpMethod.Get, "bd_pantry_items?order=expires_on.asc&limit=500")));
+app.MapGet("/items", (int? limit, int? offset, HttpContext context) => {
+    if (limit is < 1 or > 500 || offset is < 0 or > 1000000)
+        return Task.FromResult<IResult>(Results.BadRequest(new { error = "invalid_pagination" }));
+    return Data(context, HttpMethod.Get, $"bd_pantry_items?order=expires_on.asc,id.asc&limit={limit ?? 100}&offset={offset ?? 0}");
+});
 app.MapPost("/items", (CreateItem input, HttpContext context) => {
     if (string.IsNullOrWhiteSpace(input.Name) || input.Name.Length > 120 || input.Quantity is < 0 or > 1000000 ||
         string.IsNullOrWhiteSpace(input.Location) || input.Location.Length > 80 || input.ExpiresOn < new DateOnly(1900, 1, 1))
