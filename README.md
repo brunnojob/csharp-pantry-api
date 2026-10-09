@@ -1,10 +1,28 @@
-# csharp-pantry-api
+# Pantry API
 
-ASP.NET Core 8 minimal API with SQLite persistence for pantry stock and expiry alerts. Endpoints: `GET /health`, `GET /items`, `POST /items`, `PATCH /items/{id}/quantity`, and `GET /alerts/expiring?days=7`.
+API de estoque doméstico com validade, localização, movimentos auditados, idempotência e controle otimista de revisão.
 
-Requires .NET 8 SDK. Run `dotnet run`; SQLite creates `pantry.db` on first start. Set `ConnectionStrings__Pantry` to move the database. Keep the database out of source control.
+## Executar
 
-LOW LANGUAGE and direction with ssh
+Requisitos: ASP.NET Core 8 e Supabase.
 
-Project by [Brunno Dev](https://brunnodev.store).
+```sh
+dotnet restore
+dotnet build
+dotnet run
+```
 
+## Funcionamento
+
+Configure `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY`. Envie `Authorization: Bearer <sessão>`. Rotas: `/health`, `/items`, `/items/{id}/quantity`, `/alerts/expiring` e `/movements`. Ajustes passam pela função transacional `bd_adjust_pantry`; cada usuário acessa seu estoque.
+
+## Persistência de resultados
+
+O arquivo de operações está em [vercel-home-telemetry-api.vercel.app](https://vercel-home-telemetry-api.vercel.app/laboratory.html?project=csharp-pantry-api). As migrações Supabase estão no [repositório da API](https://github.com/brunnojob/vercel-home-telemetry-api/tree/main/supabase/migrations).
+
+```sh
+python cloud/sync.py enqueue resultado.json --project csharp-pantry-api
+python cloud/sync.py sync
+```
+
+Defina `BRUNNODEV_ACCESS_TOKEN` com sua sessão. A fila SQLite conserva os relatórios até confirmação do servidor; o mesmo conteúdo não gera registros duplicados. Tokens não são gravados no código.
