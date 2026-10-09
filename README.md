@@ -16,17 +16,10 @@ dotnet run
 
 Set `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`. Send `Authorization: Bearer <session>`. Routes: `/health`, `/items`, `/items/{id}/quantity`, `/alerts/expiring`, and `/movements`. Adjustments use the transactional `bd_adjust_pantry` function; each user accesses their own stock.
 
-## Result synchronization
+## Optional report archive
 
-The [operations archive](https://vercel-home-telemetry-api.vercel.app/laboratory.html?project=csharp-pantry-api) stores execution results. Supabase migrations are in the [API repository](https://github.com/brunnojob/vercel-home-telemetry-api/tree/main/supabase/migrations).
+Export a JSON report from the command above, then run `python cloud/sync.py enqueue result.json --project csharp-pantry-api` and `python cloud/sync.py sync`. Synchronization requires `BRUNNODEV_ACCESS_TOKEN` and the external operations API; the local outbox retains unacknowledged reports.
 
-```sh
-python cloud/sync.py enqueue result.json --project csharp-pantry-api
-python cloud/sync.py sync
-```
+## License
 
-Set `BRUNNODEV_ACCESS_TOKEN` to your session token. The SQLite outbox retains reports until the server confirms persistence; identical content does not create duplicate records. Tokens are not stored in source code. To run the synchronization tests:
-
-```sh
-python -m unittest discover -s cloud
-```
+Original source and documentation are MIT licensed; see [LICENSE](LICENSE). Third-party dependencies and media retain their respective terms. Maintained by [Brunno Dev](https://brunnodev.store).
