@@ -15,7 +15,7 @@ app.Use(async (context, next) => {
         await context.Response.WriteAsJsonAsync(new { error = "database_not_configured" }); return;
     }
     string authorization = context.Request.Headers.Authorization.ToString();
-    if (!authorization.StartsWith("Bearer ", StringComparison.Ordinal) || authorization.Length > 8192) {
+    if (!authorization.StartsWith("Bearer ", StringComparison.Ordinal) || authorization.Length > 8192 || !AuthenticationHeaderValue.TryParse(authorization, out var bearer) || string.IsNullOrWhiteSpace(bearer.Parameter) || bearer.Parameter.Any(char.IsWhiteSpace)) {
         context.Response.StatusCode = 401;
         await context.Response.WriteAsJsonAsync(new { error = "supabase_session_required" }); return;
     }
@@ -23,7 +23,7 @@ app.Use(async (context, next) => {
         var client = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("supabase");
         using var request = new HttpRequestMessage(HttpMethod.Get, databaseUrl + "/auth/v1/user");
         request.Headers.Add("apikey", publishableKey);
-        request.Headers.Authorization = AuthenticationHeaderValue.Parse(authorization);
+        request.Headers.Authorization = bearer;
         using var response = await client.SendAsync(request, context.RequestAborted);
         if (!response.IsSuccessStatusCode) {
             context.Response.StatusCode = 401;
@@ -34,7 +34,7 @@ app.Use(async (context, next) => {
             context.Response.StatusCode = 403;
             await context.Response.WriteAsJsonAsync(new { error = "registered_account_required" }); return;
         }
-        if (!user.RootElement.TryGetProperty("id", out var id) || !Guid.TryParse(id.GetString(), out var owner)) {
+        if (!user.RootElement.TryGetProperty("id", out var id) || id.ValueKind != JsonValueKind.String || !Guid.TryParse(id.GetString(), out var owner)) {
             context.Response.StatusCode = 401; return;
         }
         context.Items["owner"] = owner;

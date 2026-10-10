@@ -1,0 +1,34 @@
+{
+  "repository": "brunnojob/csharp-pantry-api",
+  "inputs": [
+    ".proof/scenarios.json",
+    ".proof/demo.py"
+  ],
+  "cases": [
+    {
+      "name": "dotnet build --configuration Release",
+      "argv": [
+        "bash",
+        "-e",
+        "-o",
+        "pipefail",
+        "-c",
+        "dotnet build --configuration Release"
+      ],
+      "timeout": 900,
+      "display": false
+    },
+    {
+      "name": "Start HTTP API, reject malformed authorization and handle upstream failure",
+      "argv": [
+        "python",
+        ".proof/demo.py"
+      ],
+      "contains": [
+        "\"malformed_session\": 401",
+        "\"unreachable_database\": 502"
+      ],
+      "timeout": 120
+    }
+  ]
+}
