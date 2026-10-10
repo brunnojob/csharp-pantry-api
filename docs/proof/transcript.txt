@@ -1,13 +1,13 @@
 $ bash -e -o pipefail -c dotnet build --configuration Release
   Determining projects to restore...
-  Restored /home/runner/work/csharp-pantry-api/csharp-pantry-api/PantryApi.csproj (in 50 ms).
+  Restored /home/runner/work/csharp-pantry-api/csharp-pantry-api/PantryApi.csproj (in 81 ms).
   PantryApi -> /home/runner/work/csharp-pantry-api/csharp-pantry-api/bin/Release/net8.0/PantryApi.dll
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:06.85
+Time Elapsed 00:00:06.00
 
 $ python .proof/demo.py
 {"database_connected": false, "health": {"configured": true, "database": "supabase", "status": "ok"}, "malformed_session": 401, "missing_session": 401, "unreachable_database": 502}

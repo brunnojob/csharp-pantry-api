@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "repository": "brunnojob/csharp-pantry-api",
-  "source_commit": "c0f76034c8bfa4c790909a58b6cee2470036679b",
-  "generated_at": "2026-10-10T02:36:24.412812+00:00",
-  "run_url": "https://github.com/brunnojob/csharp-pantry-api/actions/runs/38017573064",
+  "source_commit": "ab25cf15932a61779fcced81b64c3625f7d2b416",
+  "generated_at": "2026-10-10T02:44:38.792779+00:00",
+  "run_url": "https://github.com/brunnojob/csharp-pantry-api/actions/runs/38018065864",
   "inputs_sha256": {
     ".proof/scenarios.json": "8597279a3859182a16f59cb96788ec2b6d8dce4b8aef2540180b08b90d195e81",
     ".proof/demo.py": "4bf0d99cb25eb951066c24f6dc6f8fdd0a559a90f06d8ed3891455c935b8bb11"
@@ -23,9 +23,9 @@
       "exit": 0,
       "expected_exit": 0,
       "passed": true,
-      "seconds": 9.619,
-      "output": "  Determining projects to restore...\n  Restored /home/runner/work/csharp-pantry-api/csharp-pantry-api/PantryApi.csproj (in 50 ms).\n  PantryApi -> /home/runner/work/csharp-pantry-api/csharp-pantry-api/bin/Release/net8.0/PantryApi.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:06.85\n",
-      "output_sha256": "db02c3c83fbcb7bcbcc12fe83962eb823bb39aeaa578fba93522cb9c12827c88"
+      "seconds": 6.565,
+      "output": "  Determining projects to restore...\n  Restored /home/runner/work/csharp-pantry-api/csharp-pantry-api/PantryApi.csproj (in 81 ms).\n  PantryApi -> /home/runner/work/csharp-pantry-api/csharp-pantry-api/bin/Release/net8.0/PantryApi.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:06.00\n",
+      "output_sha256": "4e3da5af1c7f47fc3d2e478e4c69a0e56b8cb615a69d7f024ae79b6079083132"
     },
     {
       "display": true,
@@ -37,7 +37,7 @@
       "exit": 0,
       "expected_exit": 0,
       "passed": true,
-      "seconds": 3.357,
+      "seconds": 3.06,
       "output": "{\"database_connected\": false, \"health\": {\"configured\": true, \"database\": \"supabase\", \"status\": \"ok\"}, \"malformed_session\": 401, \"missing_session\": 401, \"unreachable_database\": 502}\n",
       "output_sha256": "95b951f627b455b595649d7842bf3cb42cb598625b4ac714488af2bd5f7814de"
     }
