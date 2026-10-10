@@ -28,7 +28,7 @@ Original source and documentation are MIT licensed; see [LICENSE](LICENSE). Thir
 
 Anonymous Supabase accounts receive HTTP 403. Malformed upstream JSON returns HTTP 502. `GET /items?limit=100&offset=0` provides deterministic expiry/id ordering with a maximum page size of 500 and bounded offsets.
 
-Contribution trailer: `Co-authored-by: nyctophile <329826984+ineedfoundmyway@users.noreply.github.com>`.
+Contribution trailer: `Co-authored-by: nyctophile <33561761+ineedfoundmyway@users.noreply.github.com>`.
 
 ## Execution proof
 
