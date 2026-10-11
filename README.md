@@ -1,5 +1,7 @@
 # Pantry API
 
+[View execution evidence](https://brunnojob.github.io/devstart-lab/proofs/csharp-pantry-api/)
+
 A household inventory API with expiry dates, locations, audited movements, idempotency, and optimistic revision control.
 
 ## Run
