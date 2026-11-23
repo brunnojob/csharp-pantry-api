@@ -1,4 +1,4 @@
 date=2026-11-23
-seq=256
-ts=1795449021
-scope=ef-core
+seq=257
+ts=1795449029
+scope=expiry-check
