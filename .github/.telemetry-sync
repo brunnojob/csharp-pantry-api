@@ -1,4 +1,4 @@
 date=2026-11-23
-seq=53
-ts=1795447555
-scope=inventory
+seq=54
+ts=1795447573
+scope=expiry-check
