@@ -1,4 +1,4 @@
 date=2026-11-23
-seq=255
-ts=1795449020
-scope=inventory
+seq=256
+ts=1795449021
+scope=ef-core
