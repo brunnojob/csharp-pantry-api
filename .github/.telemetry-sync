@@ -1,4 +1,4 @@
 date=2026-11-23
-seq=60
-ts=1795447621
-scope=rest-endpoints
+seq=61
+ts=1795447622
+scope=expiry-check
